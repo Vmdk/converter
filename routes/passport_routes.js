@@ -1,11 +1,7 @@
 module.exports = function(app, passport){
 
-  // =====================================
-  // PRE-AUTH ===============================
-  // =====================================
-  // show the pre-index form
-  app.get('/authorization', function(req, res) {
-        res.sendfile('./public/views/unauthindex.html'); // load the single view file (angular will handle the page changes on the front-end)
+  app.get('/', function(req, res) {
+         res.render('../public/views/index.ejs'); // load the single view file (angular will handle the page changes on the front-end)
   });
   // =====================================
   // LOGIN ===============================
@@ -19,7 +15,7 @@ module.exports = function(app, passport){
 
   // process the login form
   app.post('/login', passport.authenticate('local-login', {
-      successRedirect : '/', // redirect to the secure profile section
+      successRedirect : '/profile', // redirect to the secure profile section
       failureRedirect : '/login', // redirect back to the signup page if there is an error
       failureFlash : true // allow flash messages
   }));
