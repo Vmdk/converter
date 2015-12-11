@@ -46,8 +46,27 @@ currencyEditor.controller('mainController', function($scope, dataFactory) {
         });
   };
 
-  $scope.update = function (currency) {
-    dataFactory.updateCurrency(currency);
+  $scope.update = function (currency, index) {
+    var button = document.getElementById("edit-" + index);
+    if (button.innerHTML === "Edit") {
+      button.innerHTML = "Submit";
+      $("#name-" + index).prop("readonly", false);
+      $("#rate-" + index).prop("readonly", false);
+      $("#name-" + index).removeClass("nothing");
+      $("#rate-" + index).removeClass("nothing");
+      $("#edit-" + index).removeClass("btn-danger");
+      $("#edit-" + index).addClass("btn-success");
+    }
+    else {
+      button.innerHTML = "Edit";
+      $("#name-" + index).prop("readonly", true);
+      $("#rate-" + index).prop("readonly", true);
+      $("#name-" + index).addClass("nothing");
+      $("#rate-" + index).addClass("nothing");
+      $("#edit-" + index).removeClass("btn-success");
+      $("#edit-" + index).addClass("btn-danger");
+      dataFactory.updateCurrency(currency);
+    }
   }
 });
 currencyEditor.factory('dataFactory', ['$http', function($http) {
