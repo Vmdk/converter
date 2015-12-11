@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="currencyEditor">
+<head>
+  <title>Converter Editor</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+  <script src="../controllers/editor.js"></script>
+</head>
+<body ng-controller="mainController">
+
+  <h1>Currencies</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Rate (to USD)</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <!-- tr foreach -->
+    <tbody>
+      <tr ng-repeat="currency in currencies">
+        <td><input type="text" name="currency.name" ng-model="currency.name"></input></td>
+        <td><input type="number" name="currency.rate" ng-model="currency.rate"></input></td>
+        <td><button class="btn btn-warning btn-xs" ng-click="update(currency)">Edit</button></td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</body>
+</html>
