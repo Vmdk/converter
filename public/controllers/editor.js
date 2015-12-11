@@ -46,6 +46,8 @@ currencyEditor.controller('mainController', function($scope, dataFactory) {
         });
   };
 
+  var previousNames = {};
+
   $scope.update = function (currency, index) {
     var button = document.getElementById("edit-" + index);
     if (button.innerHTML === "Edit") {
@@ -54,18 +56,30 @@ currencyEditor.controller('mainController', function($scope, dataFactory) {
       $("#rate-" + index).prop("readonly", false);
       $("#name-" + index).removeClass("nothing");
       $("#rate-" + index).removeClass("nothing");
-      $("#edit-" + index).removeClass("btn-danger");
+      $("#edit-" + index).removeClass("btn-warning");
       $("#edit-" + index).addClass("btn-success");
+      previousNames[index] = currency.name;
     }
     else {
-      button.innerHTML = "Edit";
       $("#name-" + index).prop("readonly", true);
       $("#rate-" + index).prop("readonly", true);
       $("#name-" + index).addClass("nothing");
       $("#rate-" + index).addClass("nothing");
       $("#edit-" + index).removeClass("btn-success");
-      $("#edit-" + index).addClass("btn-danger");
-      dataFactory.updateCurrency(currency);
+      if (/^[A-Z]{3}$/.test(currency.name)){
+          dataFactory.updateCurrency(currency);
+          button.innerHTML = "Edit";
+          $("#edit-" + index).addClass("btn-warning");
+      } else {
+        currency.name = previousNames[index];
+        button.innerHTML = "Failed to update";
+        $("#edit-" + index).addClass("btn-danger");
+        setTimeout(function(){
+          button.innerHTML = "Edit";
+          $("#edit-" + index).removeClass("btn-danger");
+          $("#edit-" + index).addClass("btn-warning");
+        }, 2500);
+      }
     }
   }
 });
