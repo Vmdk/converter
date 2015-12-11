@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html ng-app="currencyEditor">
 <head>
-  <title>Converter Editor</title>
+  <meta charset="UTF-8">
+  <title>Converter by AMI-31 - Editor</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
@@ -23,23 +24,31 @@
   </style>
 </head>
 <body ng-controller="mainController">
-    <h1 style="text-align: center;">Currencies</h1>
-    <table class="table table-nonfluid">
-      <thead>
-        <tr>
-          <th width="35%">Name</th>
-          <th width="35%">Rate (to USD)</th>
-          <th width="30%">Action</th>
-        </tr>
-      </thead>
-      <!-- tr foreach -->
-      <tbody>
-        <tr ng-repeat="currency in currencies">
-          <td width="20%"><input id="name-{{$index}}" class="nothing" type="text" name="currency.name" ng-model="currency.name" readonly></input></td>
-          <td width="30%"><input id="rate-{{$index}}" class="nothing" type="number" name="currency.rate" ng-model="currency.rate" readonly></input></td>
-          <td align="center"><button id="edit-{{$index}}" class="btn btn-warning" ng-click="update(currency, $index)" />Edit</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="container">
+    <div class="page-header text-center">
+      <h1>Currencies</h1>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table table-nonfluid">
+          <thead>
+            <tr>
+              <th width="35%">Name</th>
+              <th width="35%">Rate (to USD)</th>
+              <th width="30%">Action</th>
+            </tr>
+          </thead>
+          <!-- tr foreach -->
+          <tbody>
+            <tr ng-repeat="currency in currencies">
+              <td width="35%"><input id="name-{{$index}}" class="nothing" type="text" name="currency.name" ng-model="currency.name" readonly></input></td>
+              <td width="35%"><input id="rate-{{$index}}" class="nothing" type="number" name="currency.rate" ng-model="currency.rate" readonly></input></td>
+              <td align="center"><button id="edit-{{$index}}" class="btn btn-warning" ng-click="update(currency, $index)" />Edit</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

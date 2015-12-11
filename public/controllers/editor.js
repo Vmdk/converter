@@ -46,7 +46,7 @@ currencyEditor.controller('mainController', function($scope, dataFactory) {
         });
   };
 
-  var previousNames = {};
+  var previousData = {};
 
   $scope.update = function (currency, index) {
     var button = document.getElementById("edit-" + index);
@@ -58,7 +58,10 @@ currencyEditor.controller('mainController', function($scope, dataFactory) {
       $("#rate-" + index).removeClass("nothing");
       $("#edit-" + index).removeClass("btn-warning");
       $("#edit-" + index).addClass("btn-success");
-      previousNames[index] = currency.name;
+      previousData[index] = {
+        name : currency.name,
+        rate : currency.rate
+      };
     }
     else {
       $("#name-" + index).prop("readonly", true);
@@ -66,18 +69,21 @@ currencyEditor.controller('mainController', function($scope, dataFactory) {
       $("#name-" + index).addClass("nothing");
       $("#rate-" + index).addClass("nothing");
       $("#edit-" + index).removeClass("btn-success");
-      if (/^[A-Z]{3}$/.test(currency.name)){
+      if (/^[A-Z]{3}$/.test(currency.name) && currency.rate > 0){
           dataFactory.updateCurrency(currency);
           button.innerHTML = "Edit";
           $("#edit-" + index).addClass("btn-warning");
       } else {
-        currency.name = previousNames[index];
+        currency.name = previousData[index].name;
+        currency.rate = previousData[index].rate;
         button.innerHTML = "Failed to update";
         $("#edit-" + index).addClass("btn-danger");
+        $("#edit-" + index).prop("disabled", true);
         setTimeout(function(){
           button.innerHTML = "Edit";
           $("#edit-" + index).removeClass("btn-danger");
           $("#edit-" + index).addClass("btn-warning");
+          $("#edit-" + index).prop("disabled", false);
         }, 2500);
       }
     }
